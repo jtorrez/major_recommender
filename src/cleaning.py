@@ -1,3 +1,6 @@
+from __future__ import division
+from collections import Counter
+import numpy as np
 import copy
 import operator
 
@@ -28,11 +31,30 @@ def majors_string_to_list(qa_lst):
 
     return cleaned_lst
 
+def make_counter(question, fields_dict):
+    fields = []
+    for major in question[1]:
+        for field, majors_set in fields_dict.iteritems():
+            if major in majors_set:
+                fields.append(field)
+            else:
+                continue
+    return Counter(fields)
 
-def map_to_field(clean_qa):
+def make_weight_counter(variable):
+    pass
+
+def make_label_weight_tuples(variable):
+    pass
+
+def create_labels(clean_qa, fields_dict):
     """
-    Returns qa_lst with added field of study mapping. Maps the collection of
-    majors asscociated with each question to a field of study for prediction.
+    Returns qa_lst with added class labels with weights.
+
+    Each question is assigned a primary label with associated weight and a
+    secondary label with associated weight. Questions with no secondary label
+    have a (None, None) tuple for the secondary label. Each label tuple has
+    the format (class_label(type: str), weight(type:float)).
 
     Parameters
     ----------
@@ -42,16 +64,26 @@ def map_to_field(clean_qa):
     Returns
     -------
     mapped_lst: list
-        Copy of qa_lst, list of lists with len 35. Adds a third element
-        (index 2)to each list which is the field of study mapped to the majors.
+        Copy of qa_lst, list of lists with len 35.
+
         See example below:
 
-        [[question1(type: str), majors1_lst(type:list), field1(type:str)], ...
-        ,[question35(type:str), majors35_lst(type:list), field35(type:str)]]
+        [[question1(type: str), majors1_lst(type:list),
+                               label1(type:tup), label2(type:tup)], ...
+        ,[question35(type:str), majors35_lst(type:list), field35(type:str)],
+                               label1(type:tup), label2(type:tup)]
 
     """
     mapped_lst = copy.deepcopy(clean_qa)
-    return None
+
+    for question in mapped_lst:
+        cnter = make_counter(question, fields_dict)
+        w_cnter = make_weight_counter(cnter)
+        p_label_tup, s_label_tup = make_label_weight_tuples(w_cnter)
+        question.append(p_label_tup)
+        question.append(s_label_tup)
+
+    return mapped_lst
 
 def all_majors(clean_qa):
     """
@@ -77,7 +109,29 @@ def all_majors(clean_qa):
 
 
 def get_fields_dict():
-    majors_dict = {
+    """
+    Returns a dictionary with field:majors key-value pairs. Field is a string
+    representing a general field of study. Majors is a set containing the
+    majors asscociated with the field.
+
+    Fields/keys are as follows:
+        "Creative Arts"
+        "Math, Sciences, and Engineering"
+        "Business and Communication"
+        "Social Sciences"
+        "Public Service, Law, and Policy"
+
+    Parameters
+    ----------
+    None
+
+    Returns
+    -------
+    fields_dict: dictionary,
+        field_of_study(type: str):majors(type: set) key-value pairs
+
+    """
+    fields_dict = {
          "Creative Arts": set(['Art History', 'Dance', 'Film and Digital Media',
          'Music', 'Studio Art', 'Theatre', 'Visual Communication']),
 
@@ -109,4 +163,4 @@ def get_fields_dict():
          'Forensic Science', 'Health Systems Management', 'Human Services',
          'Nursing', 'Political Science', 'PreLaw', 'Social Work'])
     }
-    return majors_dict
+    return fields_dict
