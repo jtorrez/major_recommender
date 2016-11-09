@@ -1,0 +1,9 @@
+*.pyc
+.idea
+.ipynb_checkpoints
+*.bak
+*.swp
+.DS_Store
+\reports
+scraping_attempt.ipynb
+testing.ipynb
