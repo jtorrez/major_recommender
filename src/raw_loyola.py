@@ -1,3 +1,5 @@
+#This module stores raw data and JS code used to pull data from Loyola Site
+
 """
 var q_list = []
 [].forEach.call(questions,
