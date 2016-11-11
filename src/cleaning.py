@@ -88,8 +88,22 @@ def make_weight_counter(cnter_dict):
 
     return weight_dict
 
-def make_label_weight_tuples(variable):
-    pass
+def make_label_weight_tuples(w_cnter):
+    """
+    Would like to figure out how to not hard code the number of labels returned
+
+    Parameters
+    ----------
+
+    Returns
+    -------
+    """
+    if len(w_cnter.most_common()) > 1:
+        top_two = sorted(w_cnter.most_common(2),
+                                   key=operator.itemgetter(1), reverse=True)
+        return top_two[0], top_two[1]
+    else:
+        return w_cnter.most_common()[0], None
 
 def create_labels(clean_qa, fields_dict):
     """
@@ -97,7 +111,7 @@ def create_labels(clean_qa, fields_dict):
 
     Each question is assigned a primary label with associated weight and a
     secondary label with associated weight. Questions with no secondary label
-    have a (None, None) tuple for the secondary label. Each label tuple has
+    have a None type for the secondary label. Each label tuple has
     the format (class_label(type: str), weight(type:float)).
 
     Parameters
