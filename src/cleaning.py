@@ -31,9 +31,34 @@ def majors_string_to_list(qa_lst):
 
     return cleaned_lst
 
-def make_counter(question, fields_dict):
+def make_counter(question, i, fields_dict):
+    """
+    Returns a counter dictionary with field_of_study(str):count(int) key-value
+    pairs. The count is the number of times that the field_of_study appeared
+    in the list of majors associated with the question.
+
+    Takes a list, the index of the list where the list of majors is stored,
+    and the dictionary where the mapping of fields to majors is found.
+
+    Parameters
+    ----------
+    question: list
+        A list containing the question and a list of majors associated with
+        a positive answer to that question.
+
+    i: int
+        The index where the list of majors is stored.
+
+    fields_dict: dictionary
+        field_of_study(type: str):majors(type: set) key-value pairs
+
+    Returns
+    -------
+    Counter: counter dictionary
+        field_of_study(str):count(int) key-value pairs.
+    """
     fields = []
-    for major in question[1]:
+    for major in question[i]:
         for field, majors_set in fields_dict.iteritems():
             if major in majors_set:
                 fields.append(field)
@@ -41,8 +66,27 @@ def make_counter(question, fields_dict):
                 continue
     return Counter(fields)
 
-def make_weight_counter(variable):
-    pass
+def make_weight_counter(cnter_dict):
+    """
+    Returns a new counter dictionary where the counts of the occurence of each
+    field of study have been converted to weights (percentages).
+
+    Parameters
+    ----------
+    cnter_dict: Counter dictionary
+        field_of_study(str):count(int) key-value pairs.
+
+    weight_dict: Counter dictionary
+        field_of_study(str):weight(float) key-value pairs.
+    """
+    weight_dict = copy.deepcopy(cnter_dict)
+
+    total = np.sum(weight_dict.values())
+
+    for k,v in weight_dict.iteritems():
+        weight_dict[k] = v / total
+
+    return weight_dict
 
 def make_label_weight_tuples(variable):
     pass
@@ -77,7 +121,7 @@ def create_labels(clean_qa, fields_dict):
     mapped_lst = copy.deepcopy(clean_qa)
 
     for question in mapped_lst:
-        cnter = make_counter(question, fields_dict)
+        cnter = make_counter(question, 1, fields_dict)
         w_cnter = make_weight_counter(cnter)
         p_label_tup, s_label_tup = make_label_weight_tuples(w_cnter)
         question.append(p_label_tup)
