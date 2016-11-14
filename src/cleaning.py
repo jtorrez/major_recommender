@@ -99,8 +99,7 @@ def make_label_weight_tuples(w_cnter):
     -------
     """
     if len(w_cnter.most_common()) > 1:
-        top_two = sorted(w_cnter.most_common(2),
-                                   key=operator.itemgetter(1), reverse=True)
+        top_two = w_cnter.most_common(2)
         return top_two[0], top_two[1]
     else:
         return w_cnter.most_common()[0], None
