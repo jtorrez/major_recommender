@@ -88,22 +88,6 @@ def make_weight_counter(cnter_dict):
 
     return weight_dict
 
-def make_label_weight_tuples(w_cnter):
-    """
-    Would like to figure out how to not hard code the number of labels returned
-
-    Parameters
-    ----------
-
-    Returns
-    -------
-    """
-    if len(w_cnter.most_common()) > 1:
-        top_two = w_cnter.most_common(2)
-        return top_two[0], top_two[1]
-    else:
-        return w_cnter.most_common()[0], None
-
 def create_labels(clean_qa, fields_dict):
     """
     Returns qa_lst with added class labels with weights.
@@ -135,10 +119,7 @@ def create_labels(clean_qa, fields_dict):
 
     for question in mapped_lst:
         cnter = make_counter(question, 1, fields_dict)
-        w_cnter = make_weight_counter(cnter)
-        p_label_tup, s_label_tup = make_label_weight_tuples(w_cnter)
-        question.append(p_label_tup)
-        question.append(s_label_tup)
+        question.append(cnter)
 
     return mapped_lst
 
