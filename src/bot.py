@@ -43,10 +43,10 @@ def one_quiz(mapped_lst, i_p, i_s):
         bot_answers.append(int(rand_bool))
         if rand_bool:
             raw[question[i_p][0]] = raw.get(question[i_p][0], 0.0) +\
-                                                                question[i_p][1]
+                                                            question[i_p][1]
             if question[i_s]:
                 raw[question[i_s][0]] = raw.get(question[i_s][0], 0.0)\
-                                                              + question[i_s][1]
+                                                          + question[i_s][1]
     field_probs = cl.make_weight_counter(raw)
 
     return bot_answers, raw, field_probs
