@@ -1,6 +1,7 @@
 from __future__ import division
 import random
 import numpy as np
+import pandas as pd
 import cleaning as cl
 from collections import Counter
 
@@ -50,3 +51,12 @@ def one_quiz(mapped_lst, i_p, i_s):
     field_probs = cl.make_weight_counter(raw)
 
     return bot_answers, raw, field_probs
+
+def build_dataframe():
+    pass
+
+def file_writer():
+    pass
+
+def create_dataset():
+    pass
