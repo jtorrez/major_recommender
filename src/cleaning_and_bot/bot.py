@@ -8,6 +8,16 @@ import copy
 from collections import Counter
 
 
+class QuizBot(object):
+    def __init__(self, raw_data, fields_dict):
+        self.raw_data = raw_data
+        self.fields_dict = fields_dict
+        self.clean_data = cl.majors_string_to_list(self.raw_data)
+        self.majors_set = cl.all_majors(self.clean_data)
+        self.mapped_lst = cl.create_labels(self.clean_data, self.fields_dict)
+
+
+
 def one_quiz(mapped_lst, i_c):
     """
     Returns the bot's answers to a single quiz, the raw sum of probabilities
@@ -46,7 +56,7 @@ def one_quiz(mapped_lst, i_c):
     total_counts = reduce(operator.add, field_occurences)
     field_probs = make_weight_counter(total_counts)
 
-    return bot_answers, total_counts, field_probs
+    return bot_answers, field_probs
 
 def make_weight_counter(cnter_dict):
     """
@@ -94,15 +104,20 @@ def make_column_names(num_questions):
 
     return cols
 
-def build_single_dataframe(bot_answers, labels, col_names, quiz_num):
+def build_single_dataframe(bot_answers, labels, col_names, quiz_num, field_probs):
     """
     """
     size = labels.shape[0]
     df = pd.DataFrame([bot_answers], index=range(size), columns=col_names)
     df['labels'] = labels
     df['quiz_num'] = np.full(size, quiz_num, dtype=int)
+    proba_col_names = []
+    for k, v in field_probs.iteritems():
+        col_name = k.lower().replace(' ', '_').replace(',', '') + '_proba'
+        df[col_name] = np.full(size, field_probs[k], dtype=float)
+        proba_col_names.append(col_name)
 
-    return df
+    return df, proba_col_names
 
 def take_quiz(num_times, num_questions, num_samples, mapped_lst, i_c):
     """
@@ -110,18 +125,22 @@ def take_quiz(num_times, num_questions, num_samples, mapped_lst, i_c):
     cols = make_column_names(num_questions)
 
     for quiz_num in xrange(1, num_times+1):
-        bot_answers, total_counts, field_probs = one_quiz(mapped_lst, i_c)
+        bot_answers, field_probs = one_quiz(mapped_lst, i_c)
         labels = sample_field_distribution(num_samples, field_probs)
-        single_df = build_single_dataframe(bot_answers, labels, cols, quiz_num)
+        single_df, proba_col_names = build_single_dataframe(bot_answers,
+                                                            labels,
+                                                            cols,
+                                                            quiz_num,
+                                                            field_probs)
         if quiz_num == 1:
             running_df = copy.deepcopy(single_df)
         else:
             running_df = running_df.append(single_df, ignore_index=True)
 
-    return running_df
+    correct_order_cols = cols + ['labels', 'quiz_num'] + proba_col_names
 
-def file_writer():
-    pass
+    return running_df[correct_order_cols]
 
-def create_dataset():
-    pass
+def take_quiz_and_write_file(num_times, num_questions, num_samples, mapped_lst, i_c, filename):
+    final_df = take_quiz(num_times, num_questions, num_samples, mapped_lst, i_c)
+    final_df.to_csv(filename, index=False)
