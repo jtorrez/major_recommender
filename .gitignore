@@ -5,7 +5,5 @@
 *.swp
 .DS_Store
 \reports
-scraping_attempt.ipynb
-testing.ipynb
+*.ipynb
 bot_data.csv
-Untitled*
