@@ -11,6 +11,30 @@ from collections import Counter
 
 
 class LoyolaQuizBot(object):
+    """
+    Bot built to take Loyola University of Chicago quiz.
+
+    Attributes
+    ----------
+    tbd
+
+    Methods
+    -------
+    tbd
+
+    Future Work
+    -----------
+    - Optimize multi-quiz. The bot slowed as the number of times it had to take
+      the quiz increased, most likely from having to continually overwrite the
+      running_df and store that in memory.
+    - Fix hardcoding of i_c (index of Counter dictionary) used in cleaning.
+      Methods of this class were originally not written encapsulated in a class
+      and I'd like to re-visit the usefulness of this later.
+    - Revisit hardcoding of cleaning script that creates class attributes.
+    - Make a QuizBot parent class that this class could inherit from. This
+      would allow some flexibility to easily build a bot that can take online
+      quizzes with just some minor modifications
+    """
     def __init__(self, raw_data, fields_dict):
         self.raw_data = raw_data
         self.fields_dict = fields_dict
@@ -21,28 +45,19 @@ class LoyolaQuizBot(object):
 
     def one_quiz(self):
         """
-        Returns the bot's answers to a single quiz, the raw sum of probabilities
-        of the different fields, and the field probabilities.
+        Returns the bot's answers to a single quiz and the field probabilities.
 
-        Takes the Loyola quiz once given the mapped list containing primary and
-        secondary (field, probability) tuple at the input indices.
+        Takes the Loyola quiz once using self.mappedlst.
 
         Parameters
         ----------
-        mapped_lst: list
-
-        i_c: int
-            Index of Counter dictionary containing field of study counts associated
-            with each question
+        None
 
         Returns
         -------
         bot_answers: list
             The answers of the bot to the quiz. 1 = True answer and 0 = False
             answer to the quiz question.
-
-        total_counts: Counter dictionary
-            field_of_study(str):raw_counts(int) key-value pairs.
 
         field_probs: Counter dictionary
             field_of_study(str):prob(float) key-value pairs.
@@ -61,14 +76,16 @@ class LoyolaQuizBot(object):
 
     def _make_weight_counter(self, cnter_dict):
         """
-        Returns a new counter dictionary where the counts of the occurence of each
-        field of study have been converted to weights (percentages).
+        Returns a new counter dictionary where the counts of the occurence of
+        each field of study have been converted to weights (percentages).
 
         Parameters
         ----------
         cnter_dict: Counter dictionary
             field_of_study(str):count(int) key-value pairs.
 
+        Returns
+        -------
         weight_dict: Counter dictionary
             field_of_study(str):weight(float) key-value pairs.
         """
@@ -76,13 +93,28 @@ class LoyolaQuizBot(object):
 
         total = np.sum(weight_dict.values())
 
-        for k,v in weight_dict.iteritems():
+        for k, v in weight_dict.iteritems():
             weight_dict[k] = v / total
 
         return weight_dict
 
     def _sample_field_distribution(self, num_samples, field_probs):
         """
+        Returns a numpy array of labels sampled from probability distribution
+        given by the field_probs dictionary.
+
+        Parameters
+        ----------
+        num_samples: int
+             The number of samples to draw from the distribution
+
+        field_probs: Counter dictionary
+            field_of_study(str):prob(float) key-value pairs.
+
+        Returns
+        -------
+        labels: numpy array of shape = (num_samples,)
+            Labels randomly sampled from probability distribution
         """
         fields = []
         weights = []
@@ -96,6 +128,21 @@ class LoyolaQuizBot(object):
 
     def _make_column_names(self, num_questions):
         """
+        Returns a list of column names given the num_questions to analyze.
+
+        Parameters
+        ----------
+        num_questions: int
+            The number of questions in the quiz.
+
+        Returns
+        -------
+        cols: list
+            List of column names(str) with format q1, q2, ..., qn
+            where n = num_questions.
+
+            ex: num_questions = 3
+                cols = ['q1', 'q2', 'q3']
         """
         cols = []
 
@@ -105,8 +152,39 @@ class LoyolaQuizBot(object):
 
         return cols
 
-    def _build_single_dataframe(self, bot_answers, labels, col_names, quiz_num, field_probs):
+    def _build_single_dataframe(self, bot_answers, labels,
+                                col_names, quiz_num, field_probs):
         """
+        Returns a single dataframe and the names of the probabilities for each
+        label being predicted.
+
+        Parameters
+        ----------
+        bot_answers: list
+            List of len(num_questions) with the answers from the bot taking
+            the quiz once. Answers are either 1 = True or 0 = False.
+
+        labels: numpy array of shape = (num_samples,)
+            Labels randomly sampled from probability distribution
+
+        col_names: list
+            List of len(num_questions) with strings in the format q1, ..., qn
+            where n = num_questions
+
+        quiz_num: int
+            The iteration number of the bot taking the quiz.
+
+        field_probs: Counter dictionary
+            field_of_study(str):prob(float) key-value pairs.
+
+        Returns
+        -------
+        df: Pandas dataframe
+            Dataframe containing all pertinent information about each
+            observation of the bot taking the quiz/sampling a label.
+
+        proba_col_names: list
+            List of converted label names for use in making final dataframe.
         """
         size = labels.shape[0]
         df = pd.DataFrame([bot_answers], index=range(size), columns=col_names)
@@ -120,8 +198,37 @@ class LoyolaQuizBot(object):
 
         return df, proba_col_names
 
-    def multi_quiz(self, num_times, num_questions, num_samples, run_check=1000):
+    def multi_quiz(self, num_times, num_questions, num_samples, it_check=1000):
         """
+        Returns a dataframe containing all pertinent information about each
+        observation of the bot taking the quiz/sampling a label. There will be
+        num_times * num_questions rows in the dataframe.
+
+        Parameters
+        ----------
+        num_times: int
+            The number of times you would like the bot to take the quiz.
+
+        num_questions: int
+            The number of questions in your quiz.
+
+        num_samples: int
+            The number of samples that you would like the bot to take from the
+            probability distribution given the field probabilities given by
+            each time it takes the quiz.
+
+        it_check: int, optional(default=1000)
+            Allows you to have the bot print it's progress at each iteration
+            divisible by it_check.
+
+            ex: it_check = 1000, prints every 1000 iterations
+
+        Returns
+        -------
+        running_df: Pandas dataframe
+            Dataframe containing all pertinent information about each
+            observation of the bot taking the quiz/sampling a label for the
+            entire run.
         """
         cols = self._make_column_names(num_questions)
 
@@ -138,17 +245,48 @@ class LoyolaQuizBot(object):
                 running_df = copy.deepcopy(single_df)
             else:
                 running_df = running_df.append(single_df, ignore_index=True)
-            if quiz_num % run_check == 0:
+            if quiz_num % it_check == 0:
                 print "I've taken the quiz {} times!\n".format(quiz_num)
 
         correct_order_cols = cols + ['labels', 'quiz_num'] + proba_col_names
 
         return running_df[correct_order_cols]
 
-    def multi_quiz_and_write_file(self, num_times, num_questions, num_samples, filename, run_check=1000):
+    def multi_quiz_and_write_file(self, num_times, num_questions,
+                                  num_samples, filename, it_check=1000):
         """
+        Writes a csv file containing all pertinent information about each
+        observation of the bot taking the quiz/sampling a label. There will be
+        num_times * num_questions lines in the file.
+
+        Parameters
+        ----------
+        num_times: int
+            The number of times you would like the bot to take the quiz.
+
+        num_questions: int
+            The number of questions in your quiz.
+
+        num_samples: int
+            The number of samples that you would like the bot to take from the
+            probability distribution given the field probabilities given by
+            each time it takes the quiz.
+
+        filename: str
+            The desired output filename path of your csv file.
+
+        it_check: int, optional(default=1000)
+            Allows you to have the bot print it's progress at each iteration
+            divisible by it_check.
+
+            ex: it_check = 1000, prints every 1000 iterations
+
+        Returns
+        -------
+        None
         """
-        final_df = self.multi_quiz(num_times, num_questions, num_samples, run_check)
+        final_df = self.multi_quiz(num_times, num_questions,
+                                   num_samples, it_check)
         print "Finished taking quiz, writing file\n"
         final_df.to_csv(filename, index=False)
         print "Successfully wrote a file to {}".format(filename)
@@ -160,4 +298,5 @@ if __name__ == '__main__':
     filename = sys.argv[4]
 
     quiz_bot = LoyolaQuizBot(raw_loyola.get_raw_data(), cl.get_fields_dict())
-    quiz_bot.multi_quiz_and_write_file(num_times, num_questions, num_samples, filename)
+    quiz_bot.multi_quiz_and_write_file(num_times, num_questions,
+                                       num_samples, filename)

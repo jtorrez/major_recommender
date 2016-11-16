@@ -4,6 +4,7 @@ import numpy as np
 import copy
 import operator
 
+
 def majors_string_to_list(qa_lst):
     """
     Converts the string containing the majors associated with each question
@@ -30,6 +31,7 @@ def majors_string_to_list(qa_lst):
         question[1] = question[1].split(',')
 
     return cleaned_lst
+
 
 def make_counter(question, i, fields_dict):
     """
@@ -66,27 +68,6 @@ def make_counter(question, i, fields_dict):
                 continue
     return Counter(fields)
 
-def make_weight_counter(cnter_dict):
-    """
-    Returns a new counter dictionary where the counts of the occurence of each
-    field of study have been converted to weights (percentages).
-
-    Parameters
-    ----------
-    cnter_dict: Counter dictionary
-        field_of_study(str):count(int) key-value pairs.
-
-    weight_dict: Counter dictionary
-        field_of_study(str):weight(float) key-value pairs.
-    """
-    weight_dict = copy.deepcopy(cnter_dict)
-
-    total = np.sum(weight_dict.values())
-
-    for k,v in weight_dict.iteritems():
-        weight_dict[k] = v / total
-
-    return weight_dict
 
 def create_labels(clean_qa, fields_dict):
     """
@@ -122,6 +103,7 @@ def create_labels(clean_qa, fields_dict):
         question.append(cnter)
 
     return mapped_lst
+
 
 def all_majors(clean_qa):
     """
@@ -170,35 +152,62 @@ def get_fields_dict():
 
     """
     fields_dict = {
-         "Creative Arts": set(['Art History', 'Dance', 'Film and Digital Media',
-         'Music', 'Studio Art', 'Theatre', 'Visual Communication']),
+         "Creative Arts": set(
+                              ['Art History', 'Dance',
+                               'Film and Digital Media',
+                               'Music', 'Studio Art', 'Theatre',
+                               'Visual Communication']),
 
-         "Math, Sciences, and Engineering": set(['Biochemistry',
-         'Bioinformatics', 'Biology', 'Biophysics', 'Chemistry',
-         'Communications Networks and Security', 'Economics',
-         'Engineering Science', 'Environmental Science',
-         'Environmental Studies', 'Exercise Science', 'Information Technology',
-         'Mathematics and Computer Science', 'Physics', 'PreHealth',
-         'Software Engineering', 'Statistics',
-         'Theoretical Physics and Applied Mathematics', 'Computer Science']),
+         "Math, Sciences, and Engineering": set(
+                                                ['Biochemistry',
+                                                 'Bioinformatics',
+                                                 'Biology', 'Biophysics',
+                                                 'Chemistry',
+                                                 'Communications Networks and Security',
+                                                 'Economics',
+                                                 'Engineering Science',
+                                                 'Environmental Science',
+                                                 'Environmental Studies',
+                                                 'Exercise Science',
+                                                 'Information Technology',
+                                                 'Mathematics and Computer Science',
+                                                 'Physics', 'PreHealth',
+                                                 'Software Engineering',
+                                                 'Statistics',
+                                                 'Theoretical Physics and Applied Mathematics',
+                                                 'Computer Science']),
 
-         "Business and Communication": set(['Accounting',
-         'Advertising and Public Relations', 'Communication Studies',
-         'Education', 'English', 'Entrepreneurship', 'Finance',
-         'Human Resources Mgmt','Information Systems',
-         'International Business', 'Journalism', 'Marketing',
-         'Operations Management','Sports Management']),
+         "Business and Communication": set(
+                                           ['Accounting',
+                                            'Advertising and Public Relations',
+                                            'Communication Studies',
+                                            'Education', 'English',
+                                            'Entrepreneurship', 'Finance',
+                                            'Human Resources Mgmt',
+                                            'Information Systems',
+                                            'International Business',
+                                            'Journalism', 'Marketing',
+                                            'Operations Management',
+                                            'Sports Management']),
 
-         "Social Sciences": set(['African Studies and the African Diaspora',
-         'Anthropology', 'Classical Civilization', 'French', 'Greek',
-         'History', 'Italian', 'International Studies', 'Latin', 'Philosophy',
-         'Psychology', 'Religious Studies', 'Sociology',
-         'Sociology and Anthropology', 'Spanish', 'Theology',
-         'Womens Studies and Gender Studies']),
+         "Social Sciences": set(
+                                ['African Studies and the African Diaspora',
+                                 'Anthropology', 'Classical Civilization',
+                                 'French', 'Greek', 'History', 'Italian',
+                                 'International Studies', 'Latin',
+                                 'Philosophy', 'Psychology',
+                                 'Religious Studies', 'Sociology',
+                                 'Sociology and Anthropology', 'Spanish',
+                                 'Theology',
+                                 'Womens Studies and Gender Studies']),
 
          "Public Service, Law, and Policy": set(
-         ['Criminal Justice and Criminology', 'Environmental Policy',
-         'Forensic Science', 'Health Systems Management', 'Human Services',
-         'Nursing', 'Political Science', 'PreLaw', 'Social Work'])
+                                                ['Criminal Justice and Criminology',
+                                                 'Environmental Policy',
+                                                 'Forensic Science',
+                                                 'Health Systems Management',
+                                                 'Human Services', 'Nursing',
+                                                 'Political Science', 'PreLaw',
+                                                 'Social Work'])
     }
     return fields_dict
