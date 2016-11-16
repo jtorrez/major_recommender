@@ -39,7 +39,7 @@ def load_and_clean(filename):
 
 def load_clean_write(in_file, out_file):
     df = load_and_clean(in_file)
-    df.to_csv(out_file)
+    df.to_csv(out_file, index=False)
     return "Successly wrote file!"
 
 def field_majorcat_mapper(series):
