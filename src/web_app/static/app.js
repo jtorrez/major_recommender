@@ -15,7 +15,7 @@ let send_answers_json = function(answers) {
         success: function (data) {
             console.log(data);
         },
-        data: JSON.stringify(text)
+        data: JSON.stringify(answers)
     });
 };
 

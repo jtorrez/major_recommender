@@ -1,19 +1,13 @@
 from flask import Flask, render_template, request, jsonify
 import json
 import requests
+import final_questions as fq
 app = Flask(__name__)
 
 
 @app.route('/', methods=['GET'])
 def index():
-    questions = [
-    {'question' : 'a question',
-     'question_num' : 'q3'
-     },
-    {'question' : 'another question',
-     'question_num' : 'q4'}
-    ]
-    return render_template('home.html', questions=questions)
+    return render_template('home.html', questions=fq.questions)
 
 @app.route('/score', methods=['POST'])
 def score():
