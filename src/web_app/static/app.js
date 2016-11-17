@@ -12,9 +12,6 @@ let send_answers_json = function(answers) {
         url: '/score',
         contentType: "application/json; charset=utf-8",
         type: 'POST',
-        success: function (data) {
-            console.log(data);
-        },
         data: JSON.stringify(answers)
     });
 };

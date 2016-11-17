@@ -11,13 +11,33 @@
   <h1> College Major Recommender </h1>
   <h2> 10 Questions to your dream major and career!</h2>
 
+  <div>
   {% for question in questions %}
   <div><p>{{ question.question }}</p>
     <input type="radio" name= {{ question.question_num }} value=1 id="T"><label for="T">True</label><br/>
     <input type="radio" name= {{ question.question_num }} value=0 id="F"><label for="F">False</label><br/>
+  </div>
   {% endfor %}
   </div>
+
   <div>
       <button type="button" id="submit">Submit!</button>
   </div>
+
+
+  <table>
+    <tr>
+      <th>Field of Study</th>
+      <th>Probability</th>
+    </tr>
+
+    {% for field in fields %}
+    <tr>
+      <td>{{field.field}}</td>
+      <td>{{field.probability}}</td>
+    </tr>
+    {% endfor %}
+  </table>
+
+
 </body>
