@@ -37,7 +37,6 @@ def score():
     classes = model.classes_
     probas = model.predict_proba(answer_array)
     make_field_dicts(classes, probas)
-    print fields
     return 'OK'
 
 
