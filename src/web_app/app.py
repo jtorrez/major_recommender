@@ -6,7 +6,14 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('home.html')
+    questions = [
+    {'question' : 'a question',
+     'question_num' : 'q3'
+     },
+    {'question' : 'another question',
+     'question_num' : 'q4'}
+    ]
+    return render_template('home.html', questions=questions)
 
 @app.route('/score', methods=['POST'])
 def score():

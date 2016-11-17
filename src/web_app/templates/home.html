@@ -6,3 +6,18 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script type="text/javascript" src="../static/app.js"></script>
 </head>
+
+<body>
+  <h1> College Major Recommender </h1>
+  <h2> 10 Questions to your dream major and career!</h2>
+
+  {% for question in questions %}
+  <div><p>{{ question.question }}</p>
+    <input type="radio" name= {{ question.question_num }} value=1 id="T"><label for="T">True</label><br/>
+    <input type="radio" name= {{ question.question_num }} value=0 id="F"><label for="F">False</label><br/>
+  {% endfor %}
+  </div>
+  <div>
+      <button type="button" id="submit">Submit!</button>
+  </div>
+</body>

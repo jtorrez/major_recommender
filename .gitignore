@@ -5,5 +5,7 @@
 *.swp
 .DS_Store
 \reports
-*.ipynb
+testing.ipynb
+outcome_testing.ipynb
+*.pkl
 bot_data.csv
