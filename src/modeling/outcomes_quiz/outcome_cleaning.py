@@ -64,6 +64,8 @@ def load_and_clean(filename):
     return clean_and_engineer(df)
 
 def load_clean_write(in_file, out_file):
+    """
+    """
     df = load_and_clean(in_file)
     df.to_csv(out_file, index=False)
     return "Successly wrote file!"
@@ -75,22 +77,6 @@ def field_majorcat_mapper(series):
     for field, major_cats in outcome_field_dict.iteritems():
         if series['Major_category'] in major_cats:
             return field
-
-def make_hist_box_plot(df, column, box_ratio=0.15, hist_ratio=0.85):
-    sns.set(style="ticks")
-
-    f, (ax_box, ax_hist) = plt.subplots(2,
-                                        sharex=True,
-                                        gridspec_kw={"height_ratios": \
-                                                      (box_ratio, hist_ratio)})
-
-    sns.boxplot(df[column], ax=ax_box)
-    sns.distplot(df[column], ax=ax_hist)
-
-    ax_box.set(yticks=[])
-    sns.despine(ax=ax_hist)
-    sns.despine(ax=ax_box, left=True)
-    plt.show()
 
 def get_outcome_field_dict():
     """
