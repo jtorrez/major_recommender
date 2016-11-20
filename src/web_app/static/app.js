@@ -39,7 +39,7 @@ let send_answers_json = function(answers) {
 
 $(document).ready(function() {
 
-    $("button#submit").click(function() {
+    $("a.btn.btn-default.btn-lg.submit").click(function() {
         let answers = get_interest_answers();
         send_answers_json(answers);
     })

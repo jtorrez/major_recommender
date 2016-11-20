@@ -37,46 +37,56 @@ interest_questions = [
 
 risk_questions = [
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'I want to experience several different types of jobs in my lifetime.',
+ 'statementn' : 'I want to achieve tenure, ensuring that I will always having a job.',
  'question_num' : 'q1'
  },
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'I am comfortable working purely on commission, with no regular, assured salary.',
+ 'statementn' : 'I want a pre-established raise schedule if certain conditions are satisfied.',
  'question_num' : 'q2'
  },
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'I would work on a contractual basis, even in an unstable industry, given opportunities that fit my interests perfectly.',
+ 'statementn' : "I want a full-time job that has a high level of job security even if the work I'm doing doesn't inspire me.",
  'question_num' : 'q3'
  },
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'I want to be able to incorporate flex-time, tele-commuting or family-friendly policies that allow for more personal time.',
+ 'statementn' : 'I want a set schedule that is virtually the same everyday.',
  'question_num' : 'q4'
  },
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'I am willing to make sacrifices in my personal life (e.g. spend less time with friends/family) in order to achieve career success.',
+ 'statementn' : 'I want the chance to work regular hours and to be home at a reasonable time every day.',
  'question_num' : 'q5'
  }
 ]
 
 income_desire_questions = [
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'It is important to me that I work in a job that carries a respected title, such as President, CEO, Department Head, etc.',
+ 'statementn' : 'I chose/will choose my career based on whether I will be able to help people or make the world a better place.',
  'question_num' : 'q1'
  },
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'I would like regular and substantial pay raises or other financial rewards.',
+ 'statementn' : 'I would feel unfulfilled working in a job that does nothing for humanity/the greater good.',
  'question_num' : 'q2'
  },
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'Salary is one of the most important factors in my career decisions.',
+ 'statementn' : 'I need to enjoy my work in order to feel satisfied.',
  'question_num' : 'q3'
  },
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'I want to earn luxurious rewards such as access to a private jet, vacations, or season tickets to sports games.',
+ 'statementn' : "I don't want my job to simply be a source of income - I want to do something that is meaningful to me.",
  'question_num' : 'q4'
  },
 {'statement': 'Choose the statement you agree with more:',
- 'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
+ 'statementp' : 'I want to take part in company profit-sharing, stock options or other potential opportunities for monetary gain.',
+ 'statementn' : 'I want the opportunity to give back to the community in some way.',
  'question_num' : 'q5'
  }
 ]
