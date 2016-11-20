@@ -14,8 +14,26 @@
   <div>
   {% for question in questions %}
   <div><p>{{ question.question }}</p>
-    <input type="radio" name= {{ question.question_num }} value=1 id="T"><label for="T">True</label><br/>
-    <input type="radio" name= {{ question.question_num }} value=0 id="F"><label for="F">False</label><br/>
+    <input type="radio" class='interest' name= {{ question.question_num }} value=1 id="T"><label for="T">True</label><br/>
+    <input type="radio" class='interest' name= {{ question.question_num }} value=0 id="F"><label for="F">False</label><br/>
+  </div>
+  {% endfor %}
+  </div>
+
+  <div>
+  {% for question in risk_questions %}
+  <div><p>{{ question.statement }}</p>
+    <input type="radio" class='risk' name= {{ question.question_num }} value=0.2 id="T"><label for="T">{{ question.question }}</label><br/>
+    <input type="radio" class='risk' name= {{ question.question_num }} value=0 id="F"><label for="F">{{ question.question }}</label><br/>
+  </div>
+  {% endfor %}
+  </div>
+
+  <div>
+  {% for question in income_desire_questions %}
+  <div><p>{{ question.statement }}</p>
+    <input type="radio" class='income' name= {{ question.question_num }} value=0.2 id="T"><label for="T">{{ question.question }}</label><br/>
+    <input type="radio" class='income' name= {{ question.question_num }} value=0 id="F"><label for="F">{{ question.question }}</label><br/>
   </div>
   {% endfor %}
   </div>

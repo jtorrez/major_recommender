@@ -1,6 +1,24 @@
 let get_interest_answers = function() {
     let answers = []
-    $('input:radio').each(function() {
+    $('input:radio.interest').each(function() {
+      if($(this).is(':checked')) {
+        answers.push($(this).val())
+      }})
+    return answers
+};
+
+let get_risk_answers = function() {
+    let answers = []
+    $('input:radio.risk').each(function() {
+      if($(this).is(':checked')) {
+        answers.push($(this).val())
+      }})
+    return answers
+};
+
+let get_income_answers = function() {
+    let answers = []
+    $('input:radio.income').each(function() {
       if($(this).is(':checked')) {
         answers.push($(this).val())
       }})

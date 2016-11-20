@@ -28,7 +28,11 @@ def parse_quiz_json(answer_list):
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template('home.html', questions=fq.questions, fields=fields)
+    return render_template('index.html',
+                           questions=fq.interest_questions,
+                           risk_questions=fq.risk_questions,
+                           income_desire_questions=fq.income_desire_questions,
+                           fields=fields)
 
 @app.route('/score', methods=['POST'])
 def score():
@@ -38,6 +42,18 @@ def score():
     probas = model.predict_proba(answer_array)
     make_field_dicts(classes, probas)
     return 'OK'
+
+@app.route('/project', methods=['GET'])
+def project():
+    return render_template('project.html')
+
+@app.route('/author', methods=['GET'])
+def author():
+    return render_template('author.html')
+
+@app.route('/contact', methods=['GET'])
+def contact():
+    return render_template('contact.html')
 
 
 
