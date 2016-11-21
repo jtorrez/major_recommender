@@ -17,7 +17,8 @@ Job/Income data courtesy of FiveThirtyEight and can be found [here](https://gith
 
 <br>
 
-
+## The Tools
+<br>
 <img src="images/logos/python.png" width="120">
 <img src="images/logos/jupyter.png" width="120">
 <img src="images/logos/sklearn.png" width="120">
