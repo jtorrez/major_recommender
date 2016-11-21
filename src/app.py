@@ -55,8 +55,11 @@ def score():
                                        field_dict
                                        ).sort_values(by='final_probs',
                                                      ascending=False)
-    print final_df.head(5)
-    return 'OK'
+    return final_df.to_html(index=False, classes='table')
+
+@app.route('/results', methods=['GET'])
+def results():
+    return render_template('results.html')
 
 @app.route('/quiz', methods=['GET'])
 def project():

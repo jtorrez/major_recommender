@@ -31,7 +31,8 @@ let send_answers_json = function(int_answers, risk_score, inc_score) {
         contentType: "application/json; charset=utf-8",
         type: 'POST',
         success: function (data) {
-            console.log(data);
+            console.log(data)
+            window.location.href='/results';
         },
         data: JSON.stringify([int_answers, risk_score, inc_score])
     });
