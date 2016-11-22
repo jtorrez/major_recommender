@@ -13,7 +13,6 @@ Building a college major recommendation system to make incoming undergraduate st
 
 <br>
 ## The Problem
-<br>
 
 Two important choices face first time college students: where will they go to college and what will they major in? An entire industry has been built around the first question: tutors are now paid over $50/hr (that’s 100k a year if you’re counting…) helping students get into and pick the “right” college for them. In addition, most students have the chance to work one-on-one with a college counselor at their high school to guide them through the process. However, there exists far fewer resources for guiding students to the field that will be the best fit for them. The saturation of resources on only one of those two problems in unfortunate due to the fact that it has become more apparent in recent years that where you go to college isn’t actually that important ([this book](https://www.hachettebookgroup.com/titles/frank-bruni/where-you-go-is-not-who-youll-be/9781455532704/) and [this book](http://www.billderesiewicz.com/books/excellent-sheep) have great discussions of the issue). 
 
