@@ -1,3 +1,7 @@
+let display_table = function(predictions) {
+    $("div#table").html(predictions.table)
+};
+
 let get_interest_answers = function() {
     let answers = []
     $('input.interest').each(function() {
@@ -31,11 +35,27 @@ let send_answers_json = function(int_answers, risk_score, inc_score) {
         contentType: "application/json; charset=utf-8",
         type: 'POST',
         success: function (data) {
-            console.log(data)
-            window.location.href='/results';
+            $('section#interests').hide();
+            display_table(data);
+            $('section#results').show();
         },
         data: JSON.stringify([int_answers, risk_score, inc_score])
     });
+};
+
+let reload_quiz = function() {
+  $.ajax({
+      url: '/quiz',
+      contentType: "application/json; charset=utf-8",
+      type: 'GET',
+  });
+};
+
+let uncheck_buttons = function() {
+  $('input').each(function() {
+    if($(this).is(':checked')) {
+      $(this).prop('checked', false)
+    }})
 };
 
 $(document).ready(function() {
@@ -46,5 +66,13 @@ $(document).ready(function() {
         let inc_score = get_income_answers();
         send_answers_json(int_answers, risk_score, inc_score);
     })
+
+    $("a.btn.btn-default.btn-lg.take-again").click(function() {
+        $('section#results').hide();
+        uncheck_buttons();
+        $('section#interests').show();
+
+    })
+
 
 })

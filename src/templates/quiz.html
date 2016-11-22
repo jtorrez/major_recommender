@@ -64,35 +64,52 @@
 
 
 
-    <!-- About Section -->
+    <!-- Quiz Section -->
     <section id="interests" class="container content-section text-center">
         <div class="row">
+            <h1>Catchy Title</h1>
+            <div class="col-lg-6">
+              {% for question in questions %}
+              <div><p class='question-prompts'>{{ question.question }}</p>
+                <input type="radio" class='interest' name= {{ question.question_num }} value=1 id="T"><label for="T">True</label><br/>
+                <input type="radio" class='interest' name= {{ question.question_num }} value=0 id="F"><label for="F">False</label><br/>
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col-lg-6">
+              {% for question in risk_questions %}
+              <div><p class='question-prompts'>{{ question.statement }}</p>
+                <input type="radio" class='risk' name= {{ question.question_num }} value=0.2 id="T"><label for="T">{{ question.statementp }}</label><br/>
+                <input type="radio" class='risk' name= {{ question.question_num }} value=0 id="F"><label for="F">{{ question.statementn }}</label><br/>
+              </div>
+              {% endfor %}
+              {% for question in income_desire_questions %}
+              <div><p class='question-prompts'>{{ question.statement }}</p>
+                <input type="radio" class='income' name= {{ question.question_num }} value=0.2 id="T"><label for="T">{{ question.statementp }}</label><br/>
+                <input type="radio" class='income' name= {{ question.question_num }} value=0 id="F"><label for="F">{{ question.statementn }}</label><br/>
+              </div>
+              {% endfor %}
+            </div>
+        </div>
             <div class="col-lg-8 col-lg-offset-2">
+                <br>
+                <a class="btn btn-default btn-lg submit">Submit</a>
+                <br>
+            </div>
+        </div>
+    </section>
+
+    <!-- Results Section -->
+    <section id="results" class="container content-section text-center" hidden>
+        <div class="row">
+            <div class="col-lg-12">
               <h1>Catchy Title</h1>
-              <div class='col-2'>
-                {% for question in questions %}
-                <div><p class='question-prompts'>{{ question.question }}</p>
-                  <input type="radio" class='interest' name= {{ question.question_num }} value=1 id="T"><label for="T">True</label><br/>
-                  <input type="radio" class='interest' name= {{ question.question_num }} value=0 id="F"><label for="F">False</label><br/>
-                </div>
-                {% endfor %}
-                {% for question in risk_questions %}
-                <div><p class='question-prompts'>{{ question.statement }}</p>
-                  <input type="radio" class='risk' name= {{ question.question_num }} value=0.2 id="T"><label for="T">{{ question.statementp }}</label><br/>
-                  <input type="radio" class='risk' name= {{ question.question_num }} value=0 id="F"><label for="F">{{ question.statementn }}</label><br/>
-                </div>
-                {% endfor %}
-                {% for question in income_desire_questions %}
-                <div><p class='question-prompts'>{{ question.statement }}</p>
-                  <input type="radio" class='income' name= {{ question.question_num }} value=0.2 id="T"><label for="T">{{ question.statementp }}</label><br/>
-                  <input type="radio" class='income' name= {{ question.question_num }} value=0 id="F"><label for="F">{{ question.statementn }}</label><br/>
-                </div>
-                {% endfor %}
+              <div id='table'>
               </div>
             </div>
             <div class="col-lg-8 col-lg-offset-2">
                 <br>
-                <a class="btn btn-default btn-lg submit">Submit</a>
+                <a class="btn btn-default btn-lg take-again">Take Quiz Again</a>
                 <br>
             </div>
         </div>
