@@ -1,6 +1,5 @@
 #This file contains the questions for the app
 
-#Need to put these in the same order as they go into the model!
 
 interest_questions = [
 {'question' : 'I enjoy working with people, and I have strong verbal and written communication skills.',
