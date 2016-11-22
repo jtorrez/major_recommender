@@ -1,6 +1,7 @@
 # College Major Recommender System
 
 Building a college major recommendation system to make incoming undergraduate students' lives easier.
+
 <br>
 ## The Tools
 <br>
