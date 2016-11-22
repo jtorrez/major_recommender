@@ -11,7 +11,7 @@ Building a college major recommendation system to make incoming undergraduate st
 <img src="images/logos/flask.png" width="120">
 <img src="images/logos/bootstrap.png" width="120">
 <img src="images/logos/jquery.png" width="120">
-
+<br>
 ## The Problem
 <br>
 
