@@ -387,6 +387,12 @@ td {
 }
 
 .question-prompts {
-  margin: 0 0 5px 5px;
-  font-size: 16px;
+  margin: 0 0 20px 20px;
+  font-size: 24px;
+  font-weight: bold;
+  word-wrap: break-word;
+}
+
+.interest-section {
+  text-align: left;
 }

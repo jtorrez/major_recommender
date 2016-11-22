@@ -2506,11 +2506,14 @@ legend {
   border-bottom: 1px solid #e5e5e5;
 }
 label {
-  font-size:10px;
+  font-size:16px;
   display: inline-block;
-  max-width: 100%;
+  max-width: 90%;
   margin-left: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+  text-align:left;
+  vertical-align: middle;
 }
 input[type="search"] {
   -webkit-box-sizing: border-box;

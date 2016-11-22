@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from modeling.outcomes_quiz import outcome_model as om
+from modeling.outcomes_quiz import prettify_output as p
 import pandas as pd
 import numpy as np
 import json
@@ -55,7 +56,13 @@ def score():
                                        field_dict
                                        ).sort_values(by='final_probs',
                                                      ascending=False)
-    return jsonify({'table':final_df.to_html(index=False, classes='table')})
+    pretty_columns = p.prettified_columns
+    final_columns = p.final_columns
+    pretty_df = p.prettify_final_output(final_df,
+                                        pretty_columns,
+                                        final_columns)
+
+    return jsonify({'table':pretty_df.to_html(index=False, classes='table')})
 
 @app.route('/quiz', methods=['GET'])
 def project():
