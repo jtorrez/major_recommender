@@ -16,13 +16,10 @@ final_columns = ['Major',
                  'Full Time Employment Rate (%)',
                  '25th Percentile Income (US$)',
                  'Median Income (US$)',
-                 '75th Percentile Income (US$)',
-                 'Risk Rating',
-                 'Gain Rating',
-                 'Probability of Your Interest']
+                 '75th Percentile Income (US$)']
 
-def prettify_final_output(df, pretty_columns, final_columns):
+def prettify_final_output(df, pretty_columns, final_columns, num_majors):
     df['Unemployment Rate (%)'] = df.Unemployment_rate * 100
     df['Full Time Employment Rate (%)'] = df.full_time_employment_rate * 100
     df.rename(columns=pretty_columns, inplace=True)
-    return df[final_columns]
+    return df[final_columns].head(num_majors)

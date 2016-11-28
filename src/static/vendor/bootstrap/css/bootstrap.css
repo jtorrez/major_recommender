@@ -2506,7 +2506,7 @@ legend {
   border-bottom: 1px solid #e5e5e5;
 }
 label {
-  font-size:16px;
+  font-size:20px;
   display: inline-block;
   max-width: 90%;
   margin-left: 5px;
@@ -2522,7 +2522,7 @@ input[type="search"] {
 }
 input[type="radio"],
 input[type="checkbox"] {
-  margin: 4px 0 0;
+  margin: 4px 20px 0;
   margin-top: 1px \9;
   line-height: normal;
 }

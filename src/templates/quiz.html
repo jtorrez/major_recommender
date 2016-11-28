@@ -66,26 +66,26 @@
 
     <!-- Quiz Section -->
     <section id="interests" class="container content-section text-center">
-        <h1>Catchy Title</h1>
+        <h1>RecoMajor</h1>
+        <h2>College Major Recommendations for the Undedcided</h2>
+        <h3>Answer the 20 questions below to get your recommendations:</h3>
         <div class="row interest-section">
 
-            <div class="col-lg-6 quiz">
+            <div class="col-lg-12 quiz">
               {% for question in questions %}
-              <div><p class='question-prompts'>{{ question.question }}</p>
+              <div><p class='question-prompts'>{{ question.question_num }} {{ question.question }}</p>
                 <input type="radio" class='interest' name= {{ question.question_num }} value=1 id="T"><label for="T">True</label><br/>
                 <input type="radio" class='interest' name= {{ question.question_num }} value=0 id="F"><label for="F">False</label><br/>
               </div>
               {% endfor %}
-            </div>
-            <div class="col-lg-6">
               {% for question in risk_questions %}
-              <div><p class='question-prompts'>{{ question.statement }}</p>
+              <div><p class='question-prompts'>{{ question.question_num }} {{ question.statement }}</p>
                 <input type="radio" class='risk' name= {{ question.question_num }} value=0.2 id="T"><label for="T">{{ question.statementp }}</label><br/>
                 <input type="radio" class='risk' name= {{ question.question_num }} value=0 id="F"><label for="F">{{ question.statementn }}</label><br/>
               </div>
               {% endfor %}
               {% for question in income_desire_questions %}
-              <div><p class='question-prompts'>{{ question.statement }}</p>
+              <div><p class='question-prompts'>{{ question.question_num }} {{ question.statement }}</p>
                 <input type="radio" class='income' name= {{ question.question_num }} value=0.2 id="T"><label for="T">{{ question.statementp }}</label><br/>
                 <input type="radio" class='income' name= {{ question.question_num }} value=0 id="F"><label for="F">{{ question.statementn }}</label><br/>
               </div>
@@ -105,7 +105,7 @@
         <div class="row">
             <div class="col-lg-12">
               <h1>Catchy Title</h1>
-              <div id='table'>
+              <div id='table' class="col-lg-12" >
               </div>
             </div>
             <div class="col-lg-8 col-lg-offset-2">

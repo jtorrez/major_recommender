@@ -60,7 +60,8 @@ def score():
     final_columns = p.final_columns
     pretty_df = p.prettify_final_output(final_df,
                                         pretty_columns,
-                                        final_columns)
+                                        final_columns,
+                                        20)
 
     return jsonify({'table':pretty_df.to_html(index=False, classes='table')})
 
