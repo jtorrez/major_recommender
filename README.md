@@ -23,6 +23,7 @@ And, of course, ***thank you*** for visiting and checking out my project.
 <img src="images/logos/flask.png" width="120">
 <img src="images/logos/bootstrap.png" width="120">
 <img src="images/logos/jquery.png" width="120">
+<img src="images/logos/aws.png" width="120">
 
 <br>
 ## The Problem
@@ -86,18 +87,66 @@ The Random Forest model is a perfect pick for this job as it can build a diverse
 ### Quick Note on Parameters
 Most of the default parameters worked well in this case. I didn't want to limit the depth of the trees here so I could capture all interactions between questions, something you miss out on by limiting tree depth. I also didn't need a large number of estimators, since we aren't too concerned about maximizing the ability of the model to actually predict things.
 
-One important note is that I did set the class weight parameter to balanced as when I tested it without this parameter, the model NEVER predicted someone would be interested in the creative arts. While that may be semi reasonable from a real life standpoint (art majors are few and far between), I don't want to leave my users unable to ever see art as a possible choice.
+One important note is that I did for the class weights to be balanced as when I tested it without this setting, the model NEVER predicted someone would be interested in the creative arts. While that may be semi reasonable from a real life standpoint (art majors are few and far between), I don't want to leave my users unable to ever see art as a possible choice.
 
 ### Evaluating and Picking the Final Set of Questions
+
+Accuracy metrics are extremely low, but that is often the case when predicting multiple classes. In this project, especially, we would expect this since the original labeled data was already extremely variable. Log loss is interesting as it is fairly low (though what qualifies as "very low" is definitely up for debate), which was a little unexpected considering I expected my model to be horrible at actually making predictions. However, considering what log loss measures (large penalty for being really sure about a wrong classification), this actually begins to make more sense. My model inherently is never that sure about it's predictions and this lack of commitment prevents it from making high probability, but incorrect, classifications. Basically, it is kinda wrong all the time and log loss only really blows up only when you're sure about something which my model never is. Interesting example of the power and limitations of log loss.  
+
+That being said, there was only one aspect of evaluation I was concerned with here: did the performance of the model stay the same from using the bot's answers to all 35 of the original questions vs. using the bot's answers to a subset of 10 questions? If we don't see a change in performance, it can help validate the assumption that using less questions doesn't make the model less able to predict the fields of study a user might be interested in.
+
+To pick the final 10 questions used in the survey, I first looked at feature importance. The top 4 questions (as ranked by feature importance) were clear cut, but after that the feature importances level off to relatively equal. At that point, I started picking questions that were a little less direct (direct ex: "I like science" vs. indirect: "I can work on projects very carefully and thoroughly, with patience and determination.) for a little subtler touch to the survey. This is a common survey technique and while I can most definitely NOT make any comment on the validity (I'd have to spend possibly years validating good survey questions) of that, I do think it is a common sense thing to do in order to capture more subtle information about my user.
+
+Thankfully, there was no change in performance from predicting with the full question set to predicting with the 10 question subset. Here are the evaluation metrics for the model trained on the full question set vs. the model trained on the 10 question subset (all metrics were measured using a hold-out validation set):
+
+#### Full Question Set Metrics
+|                               | precision | recall | f1-score |
+|:-----------------------------:|:---------:|:------:|:--------:|
+| Business and Communication    | 0.27      | 0.18   | 0.21     |
+| Creative Arts                 | 0.10      | 0.45   | 0.17     |
+| Math Sciences and Engineering | 0.44      | 0.14   | 0.21     |
+| Public Service Law and Policy | 0.25      | 0.14   | 0.18     |
+| Social Sciences               | 0.22      | 0.46   | 0.30     |
+|                               |           |        |          |
+| Weighted Average              | 0.31      | 0.22   | 0.22     |
+
+| Log Loss |
+|:--------:|
+| 1.577995 |
+
+
+#### 10 Question Subset Metrics
+|                               | precision | recall | f1-score |
+|:-----------------------------:|:---------:|:------:|:--------:|
+| Business and Communication    | 0.27      | 0.18   | 0.22     |
+| Creative Arts                 | 0.10      | 0.46   | 0.17     |
+| Math Sciences and Engineering | 0.44      | 0.14   | 0.21     |
+| Public Service Law and Policy | 0.25      | 0.14   | 0.18     |
+| Social Sciences               | 0.22      | 0.45   | 0.30     |
+|                               |           |        |          |
+| Weighted Average              | 0.31      | 0.22   | 0.22     |
+
+| Log Loss |
+|:--------:|
+| 1.577585 |
 
 
 ### Incorporating Career Outcomes
 
+#### How to capture
+
+#### Developing metrics
+
+#### Final answers
 
 ### Putting It All Together
 
+#### Final workflow
+
 <br>
 ## The Product
+
+### The app
 
 <br>
 
