@@ -170,4 +170,4 @@ Confirming that the recommendations being made are actually a good fit for the u
 
 If you managed to read this far...
 
-<img src="images/fun/dwightthankyou.gif" width="120">
+<img src="images/fun/dwightthankyou.gif">
