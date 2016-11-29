@@ -133,7 +133,7 @@ Thankfully, there was no change in performance from predicting with the full que
 
 ### Incorporating Career Outcomes
 
-I decided to focus on two aspects of possible careers: how secure are jobs in the field and how much money can you make in that field? These two things were the most common topics I discussed with graduating students during my time as a high school teacher. Some students were very concerned with being absolutely sure they would have a job; some students only cared about how much money they could make. For each user that used my survey, I wanted to capture what I called their ***risk tolerance***, aka how ok were they with being unemployed/part-time employed/not making much money, and their ***income desire***. But first, I needed to quantify exactly how risky and how much money there was to be gained for each given major in my data.
+I decided to focus on two aspects of possible careers: how secure are jobs in the field and how much money can you make in that field? These two things were the most common topics I discussed with graduating students during my time as a high school teacher. Some students were very concerned with being absolutely sure they would have a job; some students only cared about how much money they could make. For each user that used my survey, I wanted to capture what I called their ***risk tolerance*** and their ***income desire***. But first, I needed to quantify exactly how risky and how much money there was to be gained for each given major in my data.
 
 
 ### Developed Metrics
