@@ -298,5 +298,7 @@ if __name__ == '__main__':
     filename = sys.argv[4]
 
     quiz_bot = LoyolaQuizBot(raw_loyola.get_raw_data(), cl.get_fields_dict())
-    quiz_bot.multi_quiz_and_write_file(num_times, num_questions,
-                                       num_samples, filename)
+    quiz_bot.multi_quiz_and_write_file(num_times,
+                                       num_questions,
+                                       num_samples,
+                                       filename)
