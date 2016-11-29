@@ -167,15 +167,20 @@ gain_rating = (median_income - median_income.median()) + (p75th_income - p75th_i
 
 The higher the gain rating, the more money that major would make than is typical, as that would correlate to higher incomes at both the normal income and the upper end of incomes.
 
-### Final Workflow
+### Putting It Together
 
 Now that I had a way to measure the risk and income gain of a major, I needed a way to incorporate the users risk tolerance and income desire. I scraped some questions from a career motivation [quiz](http://www.queendom.com/tests/access_page/index.htm?idRegTest=3154#n) that related to this and came up with a simple scale.
 
 There were 5 questions relating to risk vs. security. For each question, there was a positive response (meaning they were tolerant of risk) and a negative response. Each positive response was worth 0.2, meaning that a user's risk tolerance score ranged from 0-1; the higher the score, the more ok they were with risk in their future career.
 
-There were 5 more questions I added relating to income desire. Since everyone will answer "yes" to making more money, I decided to make them decide between helping the world and income. This is definitely not a perfect methodology, but it does force the user to make trade-offs which is a common technique in career motivations surveys. The same scoring system as the risk tolerance was used.
+There were 5 more questions I added relating to income desire. Since everyone will answer "yes" to making more money, I decided to make them decide between helping the world and income. This is definitely not a perfect methodology, but it does force the user to make trade-offs which is a common technique in career motivations surveys. The same scoring system as the one for risk tolerance was used.
 
-**to be finished**
+By answering these additional 10 questions I could then weight each major by how well it matched their career goals. The final metric I used to calculate this weight, in pseudo-code:
+
+major_weight = (risk_tolerance_score * risk_rating) + (income_desire_score * gain_rating)
+
+## Final Workflow
+Now that each piece of the project was finished, it was time to put it all together. Using the user's answers to the first 10 questions about their interests, my random forest model produced the probabilities that a user was interested in each field of study. Each major in my data had been mapped to these field of studies so now each major had a degree of belief (probability of interest) associated with it. I could then use the user's answers to the second set of 10 questions to find the major weights (which describes how good of a match a major is based on their desired career outcomes) and multiply the degree of belief by the weight to produce a final degree of belief for each individual major. I then show the user the top 20 majors that match their input answers, along with the related income and employment statistics, to give them some new areas to consider.
 
 <br>
 ## The Product
