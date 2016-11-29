@@ -133,20 +133,54 @@ Thankfully, there was no change in performance from predicting with the full que
 
 ### Incorporating Career Outcomes
 
-#### How to capture
+I decided to focus on two aspects of possible careers: how secure are jobs in the field and how much money can you make in that field? These two things were the most common topics I discussed with graduating students during my time as a high school teacher. Some students were very concerned with being absolutely sure they would have a job; some students only cared about how much money they could make. For each user that used my survey, I wanted to capture what I called their ***risk tolerance***, aka how ok were they with being unemployed/part-time employed/not making much money, and their ***income desire***. But first, I needed to quantify exactly how risky and how much money there was to be gained for each given major in my data.
 
-#### Developing metrics
 
-#### Final answers
+### Developed Metrics
 
-### Putting It All Together
+Quick aside here: I accounted for differing scales (ex: unemployment rate is a percentage from 0-100 and income is in dollars from 0-unlimited) by normalizing all data to a 0-1 scale. Those calculations can be found in the source code, but have been left out here for ease of reading.
 
-#### Final workflow
+#### Risk
+
+There were three things that I felt could describe a risky major:
+ 1. There is a higher rate of being unemployed than you would usually expect across all majors.
+ 2. There is a lower rate of being full-time employed than you would usually expect across all majors.
+ 3. If you are unlucky enough to be paid near the low end of what your major is paid, is it lower that what you would usually expect across all majors.
+
+To calculate a metric that captures those ideas, I took the difference for the value of each one of those data points (unemployment rate, full-time employment rate, and the income at the 25th percentile) for a given major from the median value for that data point for all majors. The equation, in pseudo-code, looks like this:
+
+ur = unemployment_rate, ftr = full_time_employment_rate, p25th_income = income at 25th percentile
+
+risk_rating = (ur - ur.median()) + (ftr.median() - ftr) + (p25th_income.median() - p25th_income)
+
+The higher the risk rating, the more risky the major as that would correlate to unemployment rates higher than normal, full-time employment rates lower than normal, and p25th income lower than normal.
+
+#### Income Gain
+
+There were two things that I felt could describe a major that had a high potential gain:
+ 1. The typical (median) income is higher than the median income across all majors.
+ 2. If you are lucky enough to be paid near the high end of what your major is paid, is it higher than what you would usually expect across all majors.
+
+To calculate a metric that captures those ideas, I simply took the difference for the value of each one of those data points (median income and the income at the 75th percentile) for a given major from the median value for that data point for all majors. The equation, in pseudo-code, looks like this:
+
+gain_rating = (median_income - median_income.median()) + (p75th_income - p75th_income.median())
+
+The higher the gain rating, the more money that major would make than is typical, as that would correlate to higher incomes at both the normal income and the upper end of incomes.
+
+### Final Workflow
+
+Now that I had a way to measure the risk and income gain of a major, I needed a way to incorporate the users risk tolerance and income desire. I scraped some questions from a career motivation [quiz](http://www.queendom.com/tests/access_page/index.htm?idRegTest=3154#n) that related to this and came up with a simple scale.
+
+There were 5 questions relating to risk vs. security. For each question, there was a positive response (meaning they were tolerant of risk) and a negative response. Each positive response was worth 0.2, meaning that a user's risk tolerance score ranged from 0-1; the higher the score, the more ok they were with risk in their future career.
+
+There were 5 more questions I added relating to income desire. Since everyone will answer "yes" to making more money, I decided to make them decide between helping the world and income. This is definitely not a perfect methodology, but it does force the user to make trade-offs which is a common technique in career motivations surveys. The same scoring system as the risk tolerance was used.
+
+**to be finished**
 
 <br>
 ## The Product
 
-### The app
+The ultimate goal of this project was to deploy it in a way that made it accessible to any student with internet access. That means it was time to get my web dev hat on. Heavily utilizing HTML and CSS Bootstrap templates to make the site look pretty made the final product look much better than my simple web capabilities would actually allow. After building a Flask server backend, the final step was to deploy it on an AWS EC2 instance and buy a fancy domain name. Check out the final product at [www.fancydomainname.com]
 
 <br>
 
