@@ -57,9 +57,9 @@ That being said, many colleges have short quizzes that incoming students can tak
 
 **To remedy that fact, I built a bot/script that could take the quiz for me a large amount of times (10,000 times to be exact) and then record the predictions creating a set of data to work with.**
 
-One important change I made to the quiz was the result it output. Instead outputting a specific major, it instead output a probability distribution of how likely a student was to be interested in a given field of study. An example of that output:
+One important change I made to the quiz was the result it output. Instead outputting a specific major, it instead output a probability distribution, though it is better to think of it as my degree of belief that a user is interested in a given field of study, of how likely a student was to be interested in a given field of study. An example of that output:
 
-|Field of Study                 | Probability of Interest |
+|Field of Study                 | Degree of Belief        |
 |:-----------------------------:|:-----------------------:|
 | Business and Communication    | 0.15                    |
 | Creative Arts                 | 0.30                    |
@@ -151,3 +151,23 @@ Thankfully, there was no change in performance from predicting with the full que
 <br>
 
 ## Future Work
+
+This project exists mostly as a proof of concept and there are many things that could be done to improve the recommendations and make it a more useful tool.
+
+### Feedback to User
+
+The most glaring miss of this project is the feedback the user receives when they finish the quiz. Though the app does output a list of 20 majors for the user to consider, there is no information about ***why*** these majors have been recommended for them. One thing I have found when showing the app to people in person is that I can usually explain an initially strange seeming result by looking at their answers. This would be the most important and useful addition to the app.
+
+### Improved Survey Questions
+
+All the survey questions used in this project come from non-validated surveys and quizzes. Incorporating a properly validated set of survey questions (to ensure I am actually capturing the information about my user that I think I am) could turn this into a tool that academic and career counselors might feel comfortable pointing their clients to in order to start their explorations. Having properly validated questions would also improve this project with respect the ideas of equal opportunity and accessibility for all students: those users that don't have access to a counselor would have confidence that the recommendations they are receiving represent what they might receive if they did have access to a trained professional.
+
+### Further Evaluation
+
+Confirming that the recommendations being made are actually a good fit for the user is one of the most essential parts of recommendation systems. Capturing whether a college major is a good fit for a person, or not, is something that would require a years long longitudinal study if I did it on my own. Incorporating data from sites that tell you about how many students are still using their [major](http://www.studentsreview.com/still_in_field_by_major.php3) or partnering with universities/colleges to utilize their data are possible ways I could start to evaluate this project.
+
+## Thank You
+
+If you managed to read this far...
+
+<img src="images/fun/dwightthankyou.gif" width="120">
