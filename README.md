@@ -179,7 +179,7 @@ By answering these additional 10 questions I could then weight each major by how
 
 major_weight = (risk_tolerance_score * risk_rating) + (income_desire_score * gain_rating)
 
-## Final Workflow
+### Final Workflow
 Now that each piece of the project was finished, it was time to put it all together. Using the user's answers to the first 10 questions about their interests, my random forest model produced the probabilities that a user was interested in each field of study. Each major in my data had been mapped to these field of studies so now each major had a degree of belief (probability of interest) associated with it. I could then use the user's answers to the second set of 10 questions to find the major weights (which describes how good of a match a major is based on their desired career outcomes) and multiply the degree of belief by the weight to produce a final degree of belief for each individual major. I then show the user the top 20 majors that match their input answers, along with the related income and employment statistics, to give them some new areas to consider.
 
 <br>
@@ -188,7 +188,6 @@ Now that each piece of the project was finished, it was time to put it all toget
 The ultimate goal of this project was to deploy it in a way that made it accessible to any student with internet access. That means it was time to get my web dev hat on. Heavily utilizing HTML and CSS Bootstrap templates to make the site look pretty made the final product look much better than my simple web capabilities would actually allow. After building a Flask server backend, the final step was to deploy it on an AWS EC2 instance and buy a fancy domain name. Check out the final product at [www.fancydomainname.com]
 
 <br>
-
 ## Future Work
 
 This project exists mostly as a proof of concept and there are many things that could be done to improve the recommendations and make it a more useful tool.
