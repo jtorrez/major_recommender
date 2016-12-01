@@ -187,10 +187,9 @@ def quiz():
                            income_desire_questions=fq.income_desire_questions
                            )
 
+model = load_model('modeling/interest_quiz/firstmodel.pkl')
+job_df = pd.read_csv('../data/abt_ver1.csv')
+
 
 if __name__ == '__main__':
-    model_filename = sys.argv[1]
-    csv_filename = sys.argv[2]
-    model = load_model(model_filename)
-    job_df = pd.read_csv(csv_filename)
     app.run(host='0.0.0.0')
