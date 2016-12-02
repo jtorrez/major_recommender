@@ -185,7 +185,7 @@ Now that each piece of the project was finished, it was time to put it all toget
 <br>
 ## The Product
 
-The ultimate goal of this project was to deploy it in a way that made it accessible to any student with internet access. That means it was time to get my web dev hat on. Heavily utilizing HTML and CSS Bootstrap templates to make the site look pretty made the final product look much better than my simple web capabilities would actually allow. After building a Flask server backend, the final step was to deploy it on an AWS EC2 instance and buy a fancy domain name. Check out the final product at [www.fancydomainname.com]
+The ultimate goal of this project was to deploy it in a way that made it accessible to any student with internet access. That means it was time to get my web dev hat on. Heavily utilizing HTML and CSS Bootstrap templates to make the site look pretty made the final product look much better than my simple web capabilities would actually allow. After building a Flask server backend, the final step was to deploy it on an AWS EC2 instance and buy a fancy domain name. Check out the final product at www.torrez.tech
 
 <br>
 ## Future Work
