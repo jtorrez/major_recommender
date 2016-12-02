@@ -2,11 +2,11 @@
 
 A college major recommendation system to make incoming undergraduate students' lives easier.
 
-Students are given a list of recommended majors based on their answers to a short, 20 question quiz capturing information about their interests and career goals. Information on income and employment statistics for a given major is included along with the recommended majors.
+Students are provided a list of recommended majors based on their answers to a short, 20 question quiz capturing information about their interests and career goals. Information on income and employment statistics for a given major is included along with the recommended majors.
 
 The final product is deployed as a web app which can be found here:
 
-[link coming]
+[torrez.tech]
 
 For an in-depth look into the motivation and methodology of the project, read on.
 
