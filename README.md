@@ -2,11 +2,11 @@
 
 A college major recommendation system to make incoming undergraduate students' lives easier.
 
-Students are given a list of recommended majors based on their answers to a short, 20 question quiz capturing information about their interests and career goals. Information on income and employment statistics for a given major is included along with the recommended majors.
+Students are provided a list of recommended majors based on their answers to a short, 20 question quiz capturing information about their interests and career goals. Information on income and employment statistics for a given major is included along with the recommended majors.
 
 The final product is deployed as a web app which can be found here:
 
-[link coming]
+www.torrez.tech
 
 For an in-depth look into the motivation and methodology of the project, read on.
 
@@ -185,7 +185,7 @@ Now that each piece of the project was finished, it was time to put it all toget
 <br>
 ## The Product
 
-The ultimate goal of this project was to deploy it in a way that made it accessible to any student with internet access. That means it was time to get my web dev hat on. Heavily utilizing HTML and CSS Bootstrap templates to make the site look pretty made the final product look much better than my simple web capabilities would actually allow. After building a Flask server backend, the final step was to deploy it on an AWS EC2 instance and buy a fancy domain name. Check out the final product at [www.fancydomainname.com]
+The ultimate goal of this project was to deploy it in a way that made it accessible to any student with internet access. That means it was time to get my web dev hat on. Heavily utilizing HTML and CSS Bootstrap templates to make the site look pretty made the final product look much better than my simple web capabilities would actually allow. After building a Flask server backend, the final step was to deploy it on an AWS EC2 instance and buy a fancy domain name. Check out the final product at www.torrez.tech
 
 <br>
 ## Future Work
