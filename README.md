@@ -6,7 +6,7 @@ Students are provided a list of recommended majors based on their answers to a s
 
 The final product is deployed as a web app which can be found here:
 
-[torrez.tech](torrez.tech)
+www.torrez.tech
 
 For an in-depth look into the motivation and methodology of the project, read on.
 
