@@ -204,7 +204,6 @@ If you managed to read this far...
 
 <img src="images/fun/dwightthankyou.gif">
 
-<br>
 
 <img src="images/logos/python.png" width="120">
 <img src="images/logos/jupyter.png" width="120">
