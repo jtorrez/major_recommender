@@ -1,3 +1,42 @@
+"""
+Bot class built to take Loyola University of Chicago quiz.
+
+This class was built for my capstone project for the Galvanize data science
+immersive in order to make the process I used to synthesize my dataset
+transparent and repeatable.
+
+You can use this script to create your own data set by running the following
+command in your terminal:
+
+$ > python <num_times> <num_samples> <num_questions> <out_filename>
+
+num_times:
+    The number of times you want to the bot to take the quiz
+num_samples:
+    The number of samples that you would like the bot to take from the
+    probability distribution given the field probabilities given by
+    each time it takes the quiz.
+num_questions: int
+    The number of questions in your quiz.
+out_filename:
+    The desired filename for the output csv file.
+
+TODO/Future Work
+-----------
+- Upgrade __name__ == __main__ block to use ArgumentParser to take in
+  command line arguments.
+- Optimize multi-quiz. The bot slowed as the number of times it had to take
+  the quiz increased, most likely from having to continually overwrite the
+  running_df and store that in memory.
+- Fix hardcoding of i_c (index of Counter dictionary) used in cleaning.
+  Methods of this class were originally not written encapsulated in a class
+  and I'd like to re-visit the usefulness of this later.
+- Revisit hardcoding of cleaning script that creates class attributes.
+- Make a QuizBot parent class that this class could inherit from. This
+  would allow some flexibility to easily build a bot that can take online
+  quizzes with just some minor modifications
+"""
+
 from __future__ import division
 import random
 import numpy as np
@@ -11,29 +50,20 @@ from collections import Counter
 
 
 class LoyolaQuizBot(object):
-    """
-    Bot built to take Loyola University of Chicago quiz.
+    """Bot built to take Loyola University of Chicago quiz.
 
     Attributes
     ----------
-    tbd
+    raw_data:
+    fields_dict
+    i_c
+    clean_data
+    majors_set
+    mapped_lst
 
     Methods
     -------
     tbd
-
-    Future Work
-    -----------
-    - Optimize multi-quiz. The bot slowed as the number of times it had to take
-      the quiz increased, most likely from having to continually overwrite the
-      running_df and store that in memory.
-    - Fix hardcoding of i_c (index of Counter dictionary) used in cleaning.
-      Methods of this class were originally not written encapsulated in a class
-      and I'd like to re-visit the usefulness of this later.
-    - Revisit hardcoding of cleaning script that creates class attributes.
-    - Make a QuizBot parent class that this class could inherit from. This
-      would allow some flexibility to easily build a bot that can take online
-      quizzes with just some minor modifications
     """
     def __init__(self, raw_data, fields_dict):
         self.raw_data = raw_data
@@ -253,7 +283,7 @@ class LoyolaQuizBot(object):
         return running_df[correct_order_cols]
 
     def multi_quiz_and_write_file(self, num_times, num_questions,
-                                  num_samples, filename, it_check=1000):
+                                  num_samples, out_filename, it_check=1000):
         """
         Writes a csv file containing all pertinent information about each
         observation of the bot taking the quiz/sampling a label. There will be
@@ -272,8 +302,8 @@ class LoyolaQuizBot(object):
             probability distribution given the field probabilities given by
             each time it takes the quiz.
 
-        filename: str
-            The desired output filename path of your csv file.
+        out_filename: str
+            The desired filename path of the output csv file.
 
         it_check: int, optional(default=1000)
             Allows you to have the bot print it's progress at each iteration
@@ -288,17 +318,17 @@ class LoyolaQuizBot(object):
         final_df = self.multi_quiz(num_times, num_questions,
                                    num_samples, it_check)
         print "Finished taking quiz, writing file\n"
-        final_df.to_csv(filename, index=False)
-        print "Successfully wrote a file to {}".format(filename)
+        final_df.to_csv(out_filename, index=False)
+        print "Successfully wrote a file to {}".format(out_filename)
 
 if __name__ == '__main__':
     num_times = int(sys.argv[1])
     num_samples = int(sys.argv[2])
     num_questions = int(sys.argv[3])
-    filename = sys.argv[4]
+    out_filename = sys.argv[4]
 
     quiz_bot = LoyolaQuizBot(raw_loyola.get_raw_data(), cl.get_fields_dict())
     quiz_bot.multi_quiz_and_write_file(num_times,
                                        num_questions,
                                        num_samples,
-                                       filename)
+                                       out_filename)
